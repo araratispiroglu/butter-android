@@ -22,6 +22,8 @@ import butter.droid.base.manager.internal.provider.model.ProviderWrapper;
 import butter.droid.provider.base.ProviderScope;
 import butter.droid.provider.mock.MockMediaProvider;
 import butter.droid.provider.mock.MockProviderModule;
+import butter.droid.provider.popcorn.PopcornModule;
+import butter.droid.provider.popcorn.PopcornProvider;
 import butter.droid.provider.subs.mock.MockSubsProvider;
 import butter.droid.provider.subs.opensubs.OpenSubsModule;
 import butter.droid.provider.subs.opensubs.OpenSubsProvider;
@@ -36,17 +38,18 @@ import java.util.TreeSet;
 @Module(includes = {
         ProviderBindModule.class,
         VodoModule.class,
+        PopcornModule.class,
         MockProviderModule.class,
         OpenSubsModule.class}
 )
 public class ProviderModule {
 
     @Provides @ProviderScope @ElementsIntoSet Set<ProviderWrapper> provideVodoWrapper(final VodoProvider vodoProvider,
-            final OpenSubsProvider openSubsProvider, final MockMediaProvider mockProvider, final MockSubsProvider mockSubsProvider) {
+            final PopcornProvider popcornProvider, final OpenSubsProvider openSubsProvider, final MockMediaProvider mockProvider, final MockSubsProvider mockSubsProvider) {
         Set<ProviderWrapper> set = new TreeSet<>((o1, o2) -> o2.getPosition() - o1.getPosition());
         set.add(new ProviderWrapper(vodoProvider, openSubsProvider, R.string.vodo_label, R.drawable.ic_nav_movies, 0));
-        set.add(new ProviderWrapper(mockProvider, mockSubsProvider, butter.droid.provider.mock.R.string.title_movies,
-                butter.droid.provider.mock.R.drawable.ic_nav_movies, 1));
+        set.add(new ProviderWrapper(popcornProvider, openSubsProvider, R.string.popcorn_label, R.drawable.ic_nav_movies, 1));
+        set.add(new ProviderWrapper(mockProvider, mockSubsProvider, butter.droid.provider.mock.R.string.title_movies, butter.droid.provider.mock.R.drawable.ic_nav_movies, 2));
         return set;
     }
 

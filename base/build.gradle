@@ -70,6 +70,7 @@ dependencies {
     api project(':provider:media:provider')
     api project(':provider:media:vodo')
     api project(':provider:media:mock')
+    api project(':provider:media:popcorn')
 
     api project(':provider:subs:provider')
     api project(':provider:subs:mock')
